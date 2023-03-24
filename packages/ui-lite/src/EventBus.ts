@@ -91,7 +91,7 @@ class EventBus extends EventEmitter2 {
     const socketUrl = window['BP_SOCKET_URL'] || window.location.origin
     const transports = window.SOCKET_TRANSPORTS
 
-    this.guestSocket = io(`${socketUrl}/guest`, { query, transports, path: `${window['ROOT_PATH']}/socket.io` })
+    this.guestSocket = io(`${socketUrl}/guest`, { query, transports, path: `${window['ROOT_PATH']}/socket.io`, reconnectionAttempts: 10, reconnectionDelay: 3000  })
 
     this.guestSocket.on('connect', this.updateVisitorSocketId.bind(this))
     this.guestSocket.on('event', this.dispatchSocketEvent)
