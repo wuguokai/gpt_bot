@@ -13,9 +13,9 @@ const Composer: FC<Props> = props => {
   const handleKeyPress = async event => {
     if (event.key === 'Enter' && message.trim().length > 0) {
       event.preventDefault()
-
       if (event.shiftKey) {
-        return setMessage(message + '\n')
+        setMessage(message + '\n')
+        return
       }
 
       await props.api.sendMessage(props.currentSessionId, message.trim())

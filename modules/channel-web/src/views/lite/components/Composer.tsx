@@ -47,7 +47,7 @@ class Composer extends React.Component<ComposerProps, { isRecording: boolean }> 
       await this.props.sendMessage()
       return
     }
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       await this.props.sendMessage()
     }
@@ -66,8 +66,6 @@ class Composer extends React.Component<ComposerProps, { isRecording: boolean }> 
       if (shouldFocusNext) {
         this.props.focusNext()
       }
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      this.props.recallHistory(e.key)
     }
   }
 
@@ -148,18 +146,18 @@ class Composer extends React.Component<ComposerProps, { isRecording: boolean }> 
               content={
                 this.props.isEmulator
                   ? this.props.intl.formatMessage({
-                      id: 'composer.interact',
-                      defaultMessage: 'Interact with your chatbot'
-                    })
+                    id: 'composer.interact',
+                    defaultMessage: 'Interact with your chatbot'
+                  })
                   : this.props.intl.formatMessage({
-                      id: 'composer.sendMessage',
-                      defaultMessage: 'Send Message'
-                    })
+                    id: 'composer.sendMessage',
+                    defaultMessage: 'Send Message'
+                  })
               }
             >
               <button
                 className={'bpw-send-button'}
-                disabled={!this.props.message.length || this.props.composerLocked || this.state.isRecording}
+                disabled={this.props.composerLocked || this.state.isRecording}
                 onClick={this.props.sendMessage.bind(this, undefined)}
                 aria-label={this.props.intl.formatMessage({
                   id: 'composer.send',

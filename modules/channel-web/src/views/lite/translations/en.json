@@ -1,9 +1,9 @@
 {
   "composer.dropdownPlaceholder": "Select a choice",
-  "composer.placeholder": "Reply to {name}",
-  "composer.placeholderInit": "Say something to {name}",
+  "composer.placeholder": "来说点什么吧...（Shift + Enter = 换行）",
+  "composer.placeholderInit": "来说点什么吧...（Shift + Enter = 换行）",
   "composer.message": "Message to send",
-  "composer.send": "Send",
+  "composer.send": "发送",
   "composer.sendMessage": "Send Message",
   "composer.interact": "Interact with your chatbot",
   "footer.poweredBy": "We're {icon} by {link}",
