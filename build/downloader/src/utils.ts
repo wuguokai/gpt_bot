@@ -76,7 +76,9 @@ export const getDevBins = async (toolName: string, platform: string, branch: str
   const platformMatch = new RegExp(`.*-(${platform.replace('win32', 'win')})-x64`)
 
   try {
+    logger.info("下载： " + `${DEV_BIN_URL}?prefix=${prefix}`)
     const { data } = await axios.get(`${DEV_BIN_URL}?prefix=${prefix}`)
+    logger.info("下载成功： " + `${DEV_BIN_URL}?prefix=${prefix}`)
     const parser = new xml2js.Parser()
     const result = await Promise.fromCallback<S3Response>(cb => parser.parseString(data, cb))
     const files = result.ListBucketResult.Contents || []
@@ -105,7 +107,10 @@ export const getReleasedFiles = async (toolName: string, platform: string): Prom
   try {
     const platformMatch = new RegExp(`.*-(${platform.replace('win32', 'win')})-x64`)
 
+    console.log("下载： " + toolsList[toolName].url)
     const { data } = await axios.get<GithubRelease[]>(toolsList[toolName].url)
+    console.log("下载成功： " + toolsList[toolName].url)
+
     const files = data.map(x => {
       const platformFile = x.assets.find(asset => platformMatch.test(asset.name))
 

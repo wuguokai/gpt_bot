@@ -52,6 +52,14 @@ const userIdIsValid = (userId: string): boolean => {
   return !hasBreakingConstraints && /[a-z0-9-_]+/i.test(userId)
 }
 
+export function queryIPAddressByRequest(req: Request, payload: any, bp: typeof sdk): any {
+  const ip = req.headers['x-forwarded-for'] || req.headers['X-Forwarded-For'] || req.ip
+  const userAgent = req.headers['user-agent'] || req.headers['User-Agent']
+  payload['ipAddress'] = ip
+  payload['userAgent'] = userAgent
+  bp.logger.info('ip_address:' + ip + '  ###  ' +  (req['userId'] || '') + '  ### ' + (userAgent || ''))
+}
+
 export default async (bp: typeof sdk, db: Database) => {
   const asyncMiddleware = asyncMw(bp.logger)
   const globalConfig = (await bp.config.getModuleConfig('channel-web')) as Config
@@ -236,11 +244,15 @@ export default async (bp: typeof sdk, db: Database) => {
         req.conversationId = (await getRecent(req.messaging, userId)).id
       }
 
+      queryIPAddressByRequest(req, payload, bp)
+
       await sendNewMessage(req, payload, !!req.headers.authorization)
 
       res.sendStatus(200)
     })
   )
+
+
 
   router.post(
     '/messages/files',

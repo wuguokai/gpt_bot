@@ -66,7 +66,7 @@ export default async (bp: typeof sdk) => {
   router.get(
     '/details/:name',
     asyncMiddleware(async (req: any, res: any) => {
-      const { data } = await axios.get(`https://registry.npmjs.org/${req.params.name}`, {
+      const { data } = await axios.get(`https://registry.npmmirror.com/${req.params.name}`, {
         headers: {
           accept: 'application/vnd.npm.install-v1+json'
         }

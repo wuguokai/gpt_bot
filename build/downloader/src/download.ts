@@ -3,7 +3,10 @@ import fse from 'fs-extra'
 import { Readable } from 'stream'
 
 export const downloadFile = async (url: string, destinationFile: string, progress: (p: number) => void) => {
+  console.log("下载： " + url)
   const { data, headers } = await axios.get(url, { responseType: 'stream' })
+  console.log("下载成功： " + url)
+
 
   const tmpPath = destinationFile + '.tmp'
   const stream = data as Readable
