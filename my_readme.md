@@ -1,6 +1,6 @@
 # gpt_botpress
 
-## 编译
+## 编译启动
 ```bash
 yarn cache clean
 yarn
@@ -16,4 +16,5 @@ yarn run build --linux --prod --verbose
 yarn run package --linux
 cp build/docker/Dockerfile packages/bp/binaries/
 cd ./packages/bp/binaries
+docker build -t registry.cn-hangzhou.aliyuncs.com/wuguokai/gpt_botpress:0.1.0 . # 注意更换版本
 ```

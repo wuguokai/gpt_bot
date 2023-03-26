@@ -132,7 +132,9 @@ export class RealtimeService {
       serveClient: false,
       allowEIO3: true,
       transports,
-      cors
+      cors,
+      'pingInterval': bpConfig.httpServer.socketPingInterval || 14000,
+      'pingTimeout': bpConfig.httpServer.socketPingTimeout || 30000
     })
 
     if (this.useRedis) {

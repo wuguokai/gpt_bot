@@ -142,6 +142,8 @@ export interface BotpressConfig {
      * @default ["websocket","polling"]
      */
     socketTransports: string[]
+    socketPingInterval: 14000
+    socketPingTimeout: 30000
     rateLimit: {
       /**
        * * Security option to rate limit potential attacker trying to brute force something
